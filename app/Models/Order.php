@@ -3,17 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\OrderStatus;
 
-class Order extends Model
-{
-    protected $fillable=['status_order','total','user_id'];
-    protected $guarded = [];
+class Order extends Model {
+    protected $fillable = [ 'status', 'total', 'user_id' ];
 
-    public function order_item(){
-
-        return $this->hasMany(Orderitem::class);
+    protected function casts(): array {
+        return [
+            'status' => OrderStatus::class,
+        ];
     }
+
+    public function orderItem() {
+
+        return $this->hasMany( Orderitem::class );
+    }
+
     public function user() {
         return $this->belongsTo( User::class );
     }
+
+
 }
