@@ -23,7 +23,7 @@ class OrderItemFactory extends Factory
             'name' => $this->faker->word(),
             'unit_price' => $unit_price,
             'quantity' => $quantity,
-            'total' => $unit_price * $quantity, 
+            'total' => $unit_price * $quantity,
             'product_id' => Product::factory(),
             'order_id' => Order::factory(),
         ];

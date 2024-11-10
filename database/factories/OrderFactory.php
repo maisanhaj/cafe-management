@@ -17,8 +17,8 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'status_order' => $this->faker->randomElement(['pending', 'approved']), 
-            'total' => $this->faker->randomFloat(2, 10, 1000),
+            'status_order' => $this->faker->randomElement(['pending', 'approved']),
+            'total' => $this->faker->numberBetween(100, 10000),
             'user_id' => User::factory(),
         ];
     }

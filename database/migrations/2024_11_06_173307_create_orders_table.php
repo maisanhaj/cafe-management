@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->unsignedBigInteger('user_id')->unique();
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->string('status');
             $table->unsignedBigInteger('total');
