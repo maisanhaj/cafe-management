@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('price');
             $table->unsignedInteger('quantity');
-            $table->string('status');
+            $table->string('status')->default('in-stock');
             //$table->enum('status', ['available', 'outofstock'])->default('available');
             $table->string('image_path');
             $table->timestamps();

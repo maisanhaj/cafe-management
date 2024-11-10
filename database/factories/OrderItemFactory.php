@@ -16,7 +16,7 @@ class OrderItemFactory extends Factory
      */
     public function definition(): array
     {
-        $unit_price = $this->faker->randomFloat(2, 5, 500);
+        $unit_price = $this->faker->numberBetween(100,10000);
         $quantity = $this->faker->numberBetween(1, 10);
 
         return [

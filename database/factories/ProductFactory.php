@@ -19,11 +19,11 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
-            'price' => $this->faker->randomFloat(2, 10, 1000),
-            'image' => $this->faker->imageUrl(640, 480, 'products'),
+            'price' => $this->faker->numberBetween(100, 10000),
+            'image_path' => $this->faker->filePath(),
             'quantity' => $this->faker->numberBetween(1, 100),
-            'status' => $this->faker->randomElement(['available', 'out_of_stock']),
-            'category_id' => Category::factory(),  
+           // 'status' => $this->faker->randomElement(['available', 'out_of_stock']),
+            'category_id' => Category::factory(),
         ];
     }
 }

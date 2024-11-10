@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->unsignedBigInteger('total');
             //$table->enum('status', ['pending', 'approved'])->default('pending');
             $table->timestamps();
