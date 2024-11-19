@@ -17,7 +17,8 @@ class Login extends Component {
         $this->validate();
 
         if ( $this->attemptLogin() ) {
-            return redirect()->url( '/' );
+
+            return $this->redirectBasedOnRole();
         }
 
         $this->addError( 'email', 'Invalid credentials.' );
@@ -32,4 +33,14 @@ class Login extends Component {
         return Auth::attempt( [ 'email' => $this->email, 'password' => $this->password ] );
     }
 
+    private function redirectBasedOnRole() {
+        $user = Auth::user();
+        if ( $user->role->name === 'admin' ) {
+            return redirect()->route( 'admin.dashboard' );
+        }elseif ( $user->role->name === 'cashier' ) {
+            return redirect()->route( 'cashier.dashboard' );
+        }
+
+        return redirect()->to('/');
+    }
 }
