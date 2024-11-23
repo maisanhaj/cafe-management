@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class OrderFactory extends Factory
     {
         return [
             //'status_order' => $this->faker->randomElement(['pending', 'approved']),
+            'status_order' => $this->faker->randomElement(OrderStatus::cases()),
             'total' => $this->faker->numberBetween(100, 10000),
             'user_id' => User::factory(),
         ];

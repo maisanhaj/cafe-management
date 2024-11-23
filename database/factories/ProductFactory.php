@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Enums\ProductStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,6 +25,7 @@ class ProductFactory extends Factory
             'image_path' => $this->faker->filePath(),
             'quantity' => $this->faker->numberBetween(1, 100),
            // 'status' => $this->faker->randomElement(['available', 'out_of_stock']),
+           'status' => $this->faker->randomElement(ProductStatus::cases()),
             'category_id' => Category::factory(),
         ];
     }
