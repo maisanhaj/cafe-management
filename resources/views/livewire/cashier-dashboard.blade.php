@@ -1,5 +1,6 @@
 <div class="bg-gray-100">
     <x-layouts.header />
+
     <div class="flex h-screen">
        <livewire:categories />
 

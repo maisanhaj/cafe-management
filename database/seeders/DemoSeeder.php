@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ProductStatus;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -25,16 +27,14 @@ class DemoSeeder extends Seeder
 
     private function seedUsers(): void
     {
-        $role = Role::where('name', 'cashier')->first();
-
-        if (is_null($role)) {
-            throw new \RuntimeException('Unable to define role cashier for demo seeder!');
-        }
+        $role = Role::where('name', 'cashier')->firstOr(
+            fn() => throw new ModelNotFoundException('Unable to define role cashier for demo seeder')
+        );
 
         User::firstOrCreate([
             'email' => 'cashier@domain.com',
         ], [
-            'name' => 'Cashier',
+            'name' => 'Steve Jobs',
             'role_id' => $role->id,
             'password' => bcrypt('password'),
         ]);
@@ -58,7 +58,8 @@ class DemoSeeder extends Seeder
             ],
             'Desserts' => [
                 'products' => [
-                    'Chocolate Cake', 'Cheesecake', 'Brownie', 'Ice Cream Sundae', 'Apple Pie', 'Tiramisu', 'Panna Cotta',
+                    'Chocolate Cake', 'Cheesecake', 'Brownie', 'Ice Cream Sundae', 'Apple Pie', 'Tiramisu',
+                    'Panna Cotta',
                     'Lemon Tart', 'Creme Brulee', 'Fruit Tart'
                 ]
             ],
@@ -83,6 +84,7 @@ class DemoSeeder extends Seeder
         foreach ($categories as $categoryName => $properties) {
             $category = Category::firstOrCreate([
                 'name' => $categoryName,
+            ], [
                 'image_path' => 'categories/placeholder.svg'
             ]);
 
@@ -94,7 +96,7 @@ class DemoSeeder extends Seeder
                         'description' => 'Delicious '.$product.' with premium ingredients.',
                         'price' => rand(100, 10000),
                         'quantity' => rand(1, 100),
-                        'status' => 'in-stock',
+                        'status' => ProductStatus::InStock,
                         'image_path' => 'products/placeholder.svg',
                     ]);
                 }
