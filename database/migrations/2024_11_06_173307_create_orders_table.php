@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->string('status')->default('pending');
             $table->unsignedBigInteger('total')->default(0);
-            //$table->enum('status', ['pending', 'approved'])->default('pending');
             $table->timestamps();
         });
     }
