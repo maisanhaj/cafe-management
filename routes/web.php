@@ -11,9 +11,7 @@ Route::get('/', function () {
 
 Route::get('/login', Login::class)->name('login')->middleware('guest');
 
-Route::post('/logout', function() {
-    // TODO - Maisan
-})->name('logout');
+Route::post('/logout',[Login::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard');

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Category;
 use Livewire\Attributes\On;
 
 class Products extends Component {
@@ -12,7 +13,9 @@ class Products extends Component {
     public $selectedCategoryId;
 
     public function mount() {
-        $this->products = Product::all();
+        $this->products = collect();
+    //    $firstCategory = Category::orderBy('name')->first();
+    //    $this->displayProducts($firstCategory->id);
     }
 
     #[ On( 'categoryChanged' ) ]
@@ -21,6 +24,11 @@ class Products extends Component {
 
         $this->selectedCategoryId = $categoryId;
         $this->products = Product::where( 'category_id', $categoryId )->get();
+    }
+
+    //this function to display product info
+    public function displayProductsDescription($productId){
+        $this->dispatch( 'productDisplayed', productId: $productId );
     }
 
     public function render() {
