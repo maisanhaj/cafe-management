@@ -19,4 +19,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:cashier'])->group(function () {
     Route::get('/cashier/dashboard', CashierDashboard::class)->name('cashier.dashboard');
+
+    //    TODO Add order ID as parameter
+    Route::get('/cashier/order/orderid/checkout', \App\Livewire\CheckoutPage::class)->name('checkout');
 });
